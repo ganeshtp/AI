@@ -3,8 +3,8 @@ import streamlit as st
 
 from langchain_openai import OpenAI
 
-import os
-os.environ["OPENAI_API_KEY"] = "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"
+#import os
+#os.environ["OPENAI_API_KEY"] = "Update the secret key here"
 
 st.set_page_config(page_title="Simple Application Demo", page_icon=":shark:")
 st.header("Demo")

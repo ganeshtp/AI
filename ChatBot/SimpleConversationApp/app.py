@@ -4,8 +4,9 @@ from langchain_openai import ChatOpenAI
 
 import re
 
-import os
-os.environ["OPENAI_API_KEY"] = "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"
+# loading the OpenAI api key from .env (OPENAI_API_KEY="sk-********")
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv(), override=True)
 
 
 from langchain.schema import (
@@ -45,31 +46,12 @@ def get_text():
 
 chat = ChatOpenAI(temperature=0)
 
-
-
-
-user_input=get_text()
-submit = st.button('Generate')  
-
-
-
-if submit:
+prompt = st.chat_input("Say something")
+while True:
     
-    response = load_answer(user_input)
-    st.subheader("Answer:")
+    if prompt:
+        st.write(f"User: {prompt}")
+        assistant_answer  = load_answer(prompt)
+        st.write(f"AI: {assistant_answer}")
 
 
-    st.write(response)
-    message = str(st.session_state.sessionMessages)
-    #print(message)
-    ele = message.split("),")
-    #print(ele)
-    msg =""
-    for i in ele:
-        s1, s2, s3= re.split('\(|=', i)
-        s3 = s3.replace(")", "")
-        s3 = s3.replace("]", "")
-        msg += s3
-        msg += "\n"
-    st.text_area("Conversation ", msg)
-    
